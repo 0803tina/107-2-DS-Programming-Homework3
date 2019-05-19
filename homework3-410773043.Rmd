@@ -127,6 +127,17 @@ numExhibitions
 
 ```{r ans22}
 # df_oneShow
+df_oneShow <- data.frame(
+  title = exhibitionList[[1]]$title,
+  time =  exhibitionList[[1]]$showInfo[[1]]$time,
+  location = exhibitionList[[1]]$showInfo[[1]]$location,
+  locationName = exhibitionList[[1]]$showInfo[[1]]$locationName,
+  price = exhibitionList[[1]]$showInfo[[1]]$price,
+  endTime = exhibitionList[[1]]$showInfo[[1]]$endTime,
+  sourceWebName = exhibitionList[[1]]$sourceWebName,
+  stringsAsFactors = F 
+)
+df_oneShow
 ```
 
 ### 2.3 活動創立函數
@@ -143,6 +154,22 @@ return(df_oneShow)
 
 ```{r ans23}
 #  dataframe_show_info
+dataframe_show_info <- function(exhibitionInput){
+
+df_oneShow <- data.frame(
+  title = exhibitionInput$title,
+  time =  exhibitionInput$showInfo[[1]]$time,
+  location = exhibitionInput$showInfo[[1]]$location,
+  locationName = exhibitionInput$showInfo[[1]]$locationName,
+  price = exhibitionInput$showInfo[[1]]$price,
+  endTime = exhibitionInput$showInfo[[1]]$endTime,
+  sourceWebName = exhibitionInput$sourceWebName,
+  stringsAsFactors = F 
+)
+
+return(df_oneShow)
+}
+dataframe_show_info
 ```
 
 ### 2.4 活動資訊來源種類
@@ -157,6 +184,8 @@ map_dfr(exhibitionList,dataframe_show_info) -> df_allShows
 
 ```{r ans24}
 # levels(df_allShows$sourceWebName)
+df_allShows$sourceWebName <- as.factor(df_allShows$sourceWebName)
+levels(df_allShows$sourceWebName)
 ```
 
 ### 2.5 計算單一來源
@@ -164,6 +193,8 @@ map_dfr(exhibitionList,dataframe_show_info) -> df_allShows
 
 ```{r ans25}
 # totalCount
+totalCount <- sum(as.numeric(df_allShows$sourceWebName == "全國藝文活動資訊系統"))
+totalCount
 ```
 
 
